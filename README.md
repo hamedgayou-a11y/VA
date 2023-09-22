@@ -1,76 +1,66 @@
-[![VA banner](https://raw.githubusercontent.com/asLody/VirtualApp/master/Logo.png)](https://github.com/asLody/VirtualApp)
-
-[中国人猛戳这里](CHINESE.md "中文")
-
-About
+简介
 -----
-**VirtualApp** is an open platform for Android that allows you to create a `Virtual Space`,
-you can install and run apk inside. Beyond that, VirtualApp is also a `Plugin Framework`,
-the plugins running on VirtualApp does not require any constraints.
-VirtualApp does **not** require root, it is running on the `local process`.
+**VirtualXposed** 是基于[VirtualApp](https://github.com/asLody/VirtualApp) 和 [epic](https://github.com/tiann/epic) 在**非ROOT**环境下运行Xposed模块的实现（支持5.0~8.1)。
 
-NOTICE
+警告
 -------
-**This project has been authorized by the business.**
+本项目使用的 VirtualApp 不允许用于商业用途，如果有这个需求，请联系 Lody (imlody@foxmail.com)。
 
-**You are not allowed to modify the app module and put to the software market, if you do that, The consequences you know :)**
-
-**VirtualApp is not free, If you need to use the lib code, please send email to me :)**
-
-Background
+使用
 ----------
 
-VirtualApp was born in early 2015, Originally, it is just a simple plugin framework, 
-But as time goes on,
-the compatibility of it is getting better and better.
-in the end, it evolved into a `Virtual Container`.
+## 准备
 
+首先在 [发布页面](https://github.com/android-hacker/VirtualXposed/releases) 下载最新的VAExposed安装包安装到手机。
 
-Get started
+## 安装模块
+
+打开 VirtualXposed，在里面安装要使用的APP，以及相应的Xposed模块即可。
+
+注意：**所有的工作（安装Xposed模块，安装APP）必须在 VirtualXposed中**进行，否则Xposed模块不会有任何作用！比如，将微信直接安装在系统上（而非VirtualXposed中），防撤回安装在VirtualXposed中；或者把微信安装在VirtualXposed上，防撤回插件直接安装在系统上；或者两者都直接安装在系统上，**均不会起任何作用**。
+
+在VirtualXposed中安装App有两种方式：
+
+1. 直接复制已经在系统中安装好的APP，比如如果你系统中装了微信，那么可以直接复制一份。
+2. 通过外置存储直接安装APK文件；点主界面的➕，然后选择后面两个TAB即可。
+
+在VirtualXposed中安装Xposed模块，可以跟安装正常的APK一样，以上两种安装App的方式也适用于安装Xposed模块。不过，你也可以通过VirtualXposed中内置的XposedInstaller来安装和管理模块，跟通常的XposedInstaller使用方式一样；去下载页面，下载安装即可。 
+
+## 已经支持的模块
+
+- 微X模块
+- 微信巫师
+- 应用变量
+- 音量增强器
+- 微信学英语
+- 冲顶助手
+- 情迁抢包
+- 微信跳一跳助手
+- 步数修改器
+- 模拟位置
+- 指纹支付
+
+或许还有很多，自行测试。
+
+已知问题
 -----------
-If you use latest android studio (version 2.0 or above), please disable `Instant Run`.
-Open `Setting | Build,Exception,Deployment`, and disable `Enable Instant Run to hot swap...`
 
-**Goto your Application and insert the following code:**
-```java
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        try {
-            VirtualCore.get().startup(base);
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-    }
-```
+1. 由于暂不支持资源HOOK，因此资源钩子不会起任何作用；使用资源HOOK的模块，相应的功能不会生效。
+4. 部分插件的兼容性有问题，比如QX模块。
 
-**Install a virtual App:**
-```java
-    VirtualCore.get().installPackage({APK PATH}, flags);
-    
-```
-
-**Launch a virtual App:**
-```java
-    //VirtualApp support multi-user-mode which can run multiple instances of a same app.
-    //if you don't need this feature, just set `{userId}` to 0.
-    Intent intent = VirtualCore.get().getLaunchIntent({PackageName}, {userId});
-    VActivityManager.get().startActivity(intent, {userId});
-```
-
-**Uninstall a virtual App:**
-```java
-    VirtualCore.get().uninstallPackage({PackageName});
-```
-
-More details, please read the source code of demo app, :-)
-
-Documentation
--------------
-
-VirtualApp currently has **no documentation**, If you are interested in VirtualApp, please send email to me.
-
-Contact us
+支持和加入
 ------------
 
-    zl@aluohe.com
+目前VirtualXposed 还不完善，如果你对非ROOT下实现Xposed感兴趣；欢迎加入！你可以通过如下方式来支持：
+
+1. 直接贡献代码，提供Feature，修复BUG！
+2. 使用你拥有的手机，安装你常用的Xposed模块，反馈不可用情况；协助帮忙解决兼容性问题！
+3. 提出体验上，功能上的建议，帮助完善VirtualXposed！
+
+致谢
+------
+
+1. [VirtualApp](https://github.com/asLody/VirtualApp)
+2. [Xposed](https://github.com/rovo89/Xposed)
+    
+
